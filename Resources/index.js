@@ -110,14 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function moveLeft() {
-        if (jumperLeft >= 0) {
+        if (jumperLeft >= 2) {
             jumperLeft -= 2;
             jumper.style.left = jumperLeft + 'rem';
         }
     }
 
     function moveRight() {
-        if (jumperLeft <= 28) {
+        if (jumperLeft <= 26) {
             jumperLeft += 2;
             jumper.style.left = jumperLeft + 'rem';
         }
