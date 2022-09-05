@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tramps.push(newTramp);
         }
     }
-
+    
+    //Moving trampolines randomly at the bottom of the screen
     function moveTramps() {
         tramps.forEach(tramp => {
             setInterval(function () {
@@ -121,7 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
             jumper.style.left = jumperLeft + 'rem';
         }
     }
-
+    
+    //Game over
     function Gg() {
         gameOver = true;
         console.log('game over');
