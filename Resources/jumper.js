@@ -3,7 +3,6 @@ const ACCEL = 0.001;
 
 export default class Jumper {
     constructor(jumperElem) {
-        this.strafeSpeed = 3;
         this.jumperElem = jumperElem;
         this.reset();
     }
