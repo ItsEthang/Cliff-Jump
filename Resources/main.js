@@ -6,10 +6,6 @@ const jumper = new Jumper(document.getElementById('jumper'));
 const jumper2 = new Jumper(document.getElementById('jumper2'));
 const platform = new Platform(document.getElementById('platform'));
 //horizontal direction conditionals for the jumpers.
-let lefting;
-let righting;
-let lefting2;
-let righting2;
 
 let lastTime;
 //get the timespan between frames.
@@ -18,10 +14,12 @@ function update(time) {
         const delta = time - lastTime;
         //taking delay into account, 
         //then use it to update the objects' positions
-        jumper.fall(delta, [platform.rect()]);
-        jumper2.fall(delta, [platform.rect()]);
-        platform.move(delta);
-        move();
+        //jumper.fall(delta, [platform.rect()]);
+        //jumper2.fall(delta, [platform.rect()]);
+        jumper.sway(delta, jumper2.rect());
+        jumper2.sway(delta, jumper.rect());
+        //platform.move(delta);
+        //move();
 
         if (isLose()) {
             handleLose();
@@ -47,35 +45,35 @@ function handleLose() {
 }
 
 //move the jumper left & right
-function move() {
+// function strafe() {
 	
-	if(lefting && (jumper.rect().left > 0)) { 
-		jumper.left -= STRAFE_SPD;
-	}
-	if(righting && (jumper.rect().right < window.innerWidth)) {
-		jumper.left += STRAFE_SPD;	
-	}
-    if(lefting2 && (jumper2.rect().left > 0)) { 
-		jumper2.left -= STRAFE_SPD;
-	}
-	if(righting2 && (jumper2.rect().right < window.innerWidth)) {
-		jumper2.left += STRAFE_SPD;	
-	}
+// 	if(jumper.lefting && (jumper.rect().left > 0)) { 
+// 		jumper.left -= STRAFE_SPD;
+// 	}
+// 	if(jumper.righting && (jumper.rect().right < window.innerWidth)) {
+// 		jumper.left += STRAFE_SPD;	
+// 	}
+//     if(jumper2.lefting && (jumper2.rect().left > 0)) { 
+// 		jumper2.left -= STRAFE_SPD;
+// 	}
+// 	if(jumper2.righting && (jumper2.rect().right < window.innerWidth)) {
+// 		jumper2.left += STRAFE_SPD;	
+// 	}
 	
-}
+// }
 
 document.onkeydown = function(e) {
-	if(e.code == 'ArrowLeft') lefting = true;
-	if(e.code == 'ArrowRight') righting = true;
-    if(e.code == 'KeyA') lefting2 = true;
-	if(e.code == 'KeyD') righting2 = true;
+	if(e.code == 'ArrowLeft') jumper.lefting = true;
+	if(e.code == 'ArrowRight') jumper.righting = true;
+    if(e.code == 'KeyA') jumper2.lefting = true;
+	if(e.code == 'KeyD') jumper2.righting = true;
 }
 
 document.onkeyup = function(e) {
-	if(e.code == 'ArrowLeft') lefting = false;
-	if(e.code == 'ArrowRight') righting = false;
-    if(e.code == 'KeyA') lefting2 = false;
-	if(e.code == 'KeyD') righting2 = false;
+	if(e.code == 'ArrowLeft') jumper.lefting = false;
+	if(e.code == 'ArrowRight') jumper.righting = false;
+    if(e.code == 'KeyA') jumper2.lefting = false;
+	if(e.code == 'KeyD') jumper2.righting = false;
 }
 
 
