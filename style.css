@@ -1,0 +1,54 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --hue: 250;
+  --saturation: 50%;
+  --foreground-color: hsl(var(--hue), var(--saturation), 75%);
+  --background-color: hsl(var(--hue), var(--saturation), 20%);
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  overflow: hidden;
+}
+
+.platform {
+  --left: 50;
+
+  position: absolute;
+  background-color: var(--foreground-color);
+  height: 3vh;
+  width: 15vh;
+  left: calc(var(--left) * 1vw);
+  top: 97vh;
+  transform: translateX(-50%);
+}
+
+.jumper,
+.jumper2 {
+  --top: 0;
+  --left: 30;
+  --width: 3;
+
+  position: absolute;
+  background-color: var(--foreground-color);
+  height: 5vw;
+  width: calc(var(--width) * 1vw);
+  top: calc(var(--top) * 1vh);
+  left: calc(var(--left) * 1vw);
+  transform: translateX(-50%);
+  border-radius: 5px;
+  transition: left linear 0.02s;
+}
+
+.jumper2 {
+  --left: 70;
+  background-color: hsl(100, var(--saturation), 75%);
+}
