@@ -1,12 +1,10 @@
 import Jumper from './jumper.js'
 import Platform from './platform.js'
 
-const STRAFE_SPD = 1;
 const jumper = new Jumper(document.getElementById('jumper'));
 const jumper2 = new Jumper(document.getElementById('jumper2'));
 const platform = new Platform(document.getElementById('platform'));
 //horizontal direction conditionals for the jumpers.
-
 let lastTime;
 //get the timespan between frames.
 function update(time) {
@@ -15,11 +13,11 @@ function update(time) {
         //taking delay into account, 
         //then use it to update the objects' positions
         //jumper.fall(delta, [platform.rect()]);
-        //jumper2.fall(delta, [platform.rect()]);
+        jumper2.fall(delta, [platform.rect()]);
         jumper.sway(delta, jumper2.rect());
         jumper2.sway(delta, jumper.rect());
-        //platform.move(delta);
-        //move();
+        platform.move(delta);
+        //strafe();
 
         if (isLose()) {
             handleLose();

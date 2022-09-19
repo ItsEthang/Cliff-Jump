@@ -26,8 +26,8 @@ body {
   background-color: var(--foreground-color);
   height: 3vh;
   width: 15vh;
-  bottom: 0;
   left: calc(var(--left) * 1vw);
+  top: 97vh;
   transform: translateX(-50%);
 }
 
@@ -35,11 +35,12 @@ body {
 .jumper2 {
   --top: 0;
   --left: 30;
+  --width: 3;
 
   position: absolute;
   background-color: var(--foreground-color);
-  height: 7vh;
-  width: 4vh;
+  height: 5vw;
+  width: calc(var(--width) * 1vw);
   top: calc(var(--top) * 1vh);
   left: calc(var(--left) * 1vw);
   transform: translateX(-50%);

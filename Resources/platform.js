@@ -1,5 +1,5 @@
 const VEL = 0.005;
-const MAX_VEL = 0.11;
+const MAX_VEL = 0.095;
 
 export default class Platform {
     constructor(platElem) {
@@ -31,7 +31,7 @@ export default class Platform {
     //move the platform
     move(delta) {
         //random acceleration
-        let accel = Math.random() / 175;
+        let accel = Math.random() / 250;
         //returns 1 or 0
         let coin = Math.round(Math.random());
         //reverse acceleration on 0

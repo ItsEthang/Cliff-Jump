@@ -1,6 +1,6 @@
 const VEL = 0.0015;
 const ACCEL = 0.001;
-const HORI_ACCEL = 0.0005;
+const HORI_ACCEL = 0.002;
 
 export default class Jumper {
     constructor(jumperElem) {
@@ -65,6 +65,8 @@ export default class Jumper {
         this.top  = 0;
         this.direction = {y:-1};
         this.velocity = 0;
+        //note: use this to compare player's strafe velocity for bouncing mechanic.
+        //note: use the difference between the strafe velocity to decide which player reverse direction.
         this.strafeVel = 0;
     }
 
@@ -85,39 +87,66 @@ export default class Jumper {
         }
     }
 
+
     sway(delta, jumperRect) {
         //getting the position values
         const rect = this.rect();
+        //setting overflow limit
+        const ovfLimit = parseFloat(getComputedStyle(this.jumperElem).getPropertyValue('--width'))/2;
         //update the jumper's horizontal position
         //only if the jumper is within frame.
-   
         //strafing left
         if (this._lefting && rect.left > 0 && !this._righting) {
+            //resetting the strafe speed
+            if (this.strafeVel > 0) {
+                this.strafeVel = 0;
+            }
             this.strafeVel -= HORI_ACCEL;
-            console.log(this.strafeVel);
-            this.left += this.strafeVel * delta;
+            //console.log(this.strafeVel);
+            if ((this.left + this.strafeVel * delta) >= ovfLimit) {
+                this.left += this.strafeVel * delta;
+                console.log(`movLeft Pos ${this.left}`);
+            } else {
+                this.left = 2;
+                console.log(`movleft endPos ${this.left}`);
+            }
+            
         }
         //strafing right
         if (this._righting && rect.right < window.innerWidth && !this._lefting) {
+            //resetting the strafe speed
+            if (this.strafeVel < 0) {
+                this.strafeVel = 0;
+            }
             this.strafeVel += HORI_ACCEL;
-            console.log(this.strafeVel);
-            this.left += this.strafeVel * delta;
+            //console.log(this.strafeVel);
+            if ((this.left + this.strafeVel * delta) <= (window.innerWidth * 0.98)) {
+                this.left += this.strafeVel * delta;
+                console.log(`movRight Pos ${this.left}`);
+            } else {
+                this.left = window.innerWidth * 0.98;
+                console.log(`movRight endPos ${this.left}`);
+            } 
         }
-
-        if (!this._righting && !this.lefting) {
+        //no control is pressed
+        if ((!this._righting && !this.lefting)) {
             this.strafeVel = 0;
         }
-
+        //when both left and right controls are pressed, deceleration
         if (this._righting && this._lefting && rect.left > 0 && rect.right < window.innerWidth) {
             const sign  = Math.sign(this.strafeVel);
             if (sign > 0) {
                 this.strafeVel -= HORI_ACCEL;
                 //this.left += this.strafeVel * delta;
+                this.left += this.strafeVel * delta;
+                console.log(`decelVel ${this.strafeVel}`);
             } 
 
             if (sign < 0) {
                 this.strafeVel += HORI_ACCEL;
                 //this.left += this.strafeVel * delta;
+                this.left += this.strafeVel * delta;
+                console.log(`decelVel ${this.strafeVel}`);
             }
         }
         
