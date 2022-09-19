@@ -93,6 +93,7 @@ export default class Jumper {
         const rect = this.rect();
         //setting overflow limit
         const ovfLimit = parseFloat(getComputedStyle(this.jumperElem).getPropertyValue('--width'))/2;
+        //console.log(ovfLimit);
         //update the jumper's horizontal position
         //only if the jumper is within frame.
         //strafing left
@@ -107,7 +108,7 @@ export default class Jumper {
                 this.left += this.strafeVel * delta;
                 console.log(`movLeft Pos ${this.left}`);
             } else {
-                this.left = 2;
+                this.left = ovfLimit;
                 console.log(`movleft endPos ${this.left}`);
             }
             
@@ -120,11 +121,11 @@ export default class Jumper {
             }
             this.strafeVel += HORI_ACCEL;
             //console.log(this.strafeVel);
-            if ((this.left + this.strafeVel * delta) <= (window.innerWidth * 0.98)) {
+            if ((this.left + this.strafeVel * delta) <= (100-ovfLimit)) {
                 this.left += this.strafeVel * delta;
                 console.log(`movRight Pos ${this.left}`);
             } else {
-                this.left = window.innerWidth * 0.98;
+                this.left = (100-ovfLimit);
                 console.log(`movRight endPos ${this.left}`);
             } 
         }

@@ -12,7 +12,6 @@
 }
 
 body {
-  position: relative;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
@@ -27,7 +26,7 @@ body {
   height: 3vh;
   width: 15vh;
   left: calc(var(--left) * 1vw);
-  top: 97vh;
+  bottom: 0;
   transform: translateX(-50%);
 }
 

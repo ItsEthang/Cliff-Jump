@@ -13,10 +13,10 @@ function update(time) {
         //taking delay into account, 
         //then use it to update the objects' positions
         //jumper.fall(delta, [platform.rect()]);
-        jumper2.fall(delta, [platform.rect()]);
+        //jumper2.fall(delta, [platform.rect()]);
         jumper.sway(delta, jumper2.rect());
         jumper2.sway(delta, jumper.rect());
-        platform.move(delta);
+        //platform.move(delta);
         //strafe();
 
         if (isLose()) {
