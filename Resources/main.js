@@ -97,8 +97,8 @@ function BothBumped(jumper, jumper2, delta, start, duration) {
 
     jumper.strafeVel *= -1;
     jumper2.strafeVel *= -1;
-    jumper.left += jumper.strafeVel * startTime;
-    jumper2.left += jumper2.strafeVel * startTime;
+    jumper.left += jumper.strafeVel * timer;
+    jumper2.left += jumper2.strafeVel * timer;
     if (runtime < duration) {
         requestAnimationFrame(function (time) { // call requestAnimationFrame again with parameters
             BothBumped(jumper, jumper2, time, start, duration);
