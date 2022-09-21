@@ -35,7 +35,7 @@ export default class Jumper {
     }
 
     set lefting(val) {
-        if (typeof val == "boolean"){
+        if (typeof val == "boolean") {
             this._lefting = val;
         } else {
             console.log("Non-boolean type.");
@@ -47,7 +47,7 @@ export default class Jumper {
     }
 
     set righting(val) {
-        if (typeof val == "boolean"){
+        if (typeof val == "boolean") {
             this._righting = val;
         } else {
             console.log("Non-boolean type");
@@ -56,14 +56,14 @@ export default class Jumper {
 
 
 
-   //This function returns the position properties' values
-   rect() {
-    return this.jumperElem.getBoundingClientRect();
-    }   
+    //This function returns the position properties' values
+    rect() {
+        return this.jumperElem.getBoundingClientRect();
+    }
 
     reset() {
-        this.top  = 0;
-        this.direction = {y:-1};
+        this.top = 0;
+        this.direction = { y: -1 };
         this.velocity = 0;
         //note: use this to compare player's strafe velocity for bouncing mechanic.
         //note: use the difference between the strafe velocity to decide which player reverse direction.
@@ -81,9 +81,9 @@ export default class Jumper {
         //check for platform collisions
         if (platformRects.some(r => Collision(r, rect))) {
             //decrease velocity to simulate absorbed impact
-           this.velocity -= 0.001;
-           //reverse the velocity on collision
-           this.velocity *= -1;
+            this.velocity -= 0.001;
+            //reverse the velocity on collision
+            this.velocity *= -1;
         }
     }
 
@@ -92,7 +92,7 @@ export default class Jumper {
         //getting the position values
         const rect = this.rect();
         //setting overflow limit
-        const ovfLimit = parseFloat(getComputedStyle(this.jumperElem).getPropertyValue('--width'))/2;
+        const ovfLimit = parseFloat(getComputedStyle(this.jumperElem).getPropertyValue('--width')) / 2;
         //console.log(ovfLimit);
         //update the jumper's horizontal position
         //only if the jumper is within frame.
@@ -111,7 +111,7 @@ export default class Jumper {
                 this.left = ovfLimit;
                 console.log(`movleft endPos ${this.left}`);
             }
-            
+
         }
         //strafing right
         if (this._righting && rect.right < window.innerWidth && !this._lefting) {
@@ -121,13 +121,13 @@ export default class Jumper {
             }
             this.strafeVel += HORI_ACCEL;
             //console.log(this.strafeVel);
-            if ((this.left + this.strafeVel * delta) <= (100-ovfLimit)) {
+            if ((this.left + this.strafeVel * delta) <= (100 - ovfLimit)) {
                 this.left += this.strafeVel * delta;
                 console.log(`movRight Pos ${this.left}`);
             } else {
-                this.left = (100-ovfLimit);
+                this.left = (100 - ovfLimit);
                 console.log(`movRight endPos ${this.left}`);
-            } 
+            }
         }
         //no control is pressed
         if ((!this._righting && !this.lefting)) {
@@ -135,13 +135,13 @@ export default class Jumper {
         }
         //when both left and right controls are pressed, deceleration
         if (this._righting && this._lefting && rect.left > 0 && rect.right < window.innerWidth) {
-            const sign  = Math.sign(this.strafeVel);
+            const sign = Math.sign(this.strafeVel);
             if (sign > 0) {
                 this.strafeVel -= HORI_ACCEL;
                 //this.left += this.strafeVel * delta;
                 this.left += this.strafeVel * delta;
                 console.log(`decelVel ${this.strafeVel}`);
-            } 
+            }
 
             if (sign < 0) {
                 this.strafeVel += HORI_ACCEL;
@@ -150,8 +150,8 @@ export default class Jumper {
                 console.log(`decelVel ${this.strafeVel}`);
             }
         }
-        
-   
+
+
         // //check for platform collisions
         // if (Collision(jumperRect, rect)) {
         //     //decrease velocity to simulate absorbed impact
@@ -166,9 +166,9 @@ export default class Jumper {
 //check collision
 function Collision(rect1, rect2) {
     return (
-        rect1.left <= rect2.right && 
+        rect1.left <= rect2.right &&
         rect1.right >= rect2.left &&
         rect1.top <= rect2.bottom &&
         rect1.bottom >= rect2.top
-        );
+    );
 }
